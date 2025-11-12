@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HighPerformanceFraudDetectionSystem.Services
 {
-   public class ICustomerService
+    public interface ICustomerService
     {
         Task<Customer> AddCustomerAsync(Customer customer);
         Task<Customer?> GetCustomerByIdAsync(int id);
