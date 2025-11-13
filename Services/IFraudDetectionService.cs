@@ -9,9 +9,9 @@ namespace HighPerformanceFraudDetectionSystem.Services
 {
     public interface IFraudDetectionService
     {
-        Task<List<FraudCase>> DetectFraudAsync(FraudCase fraudCase);
+        Task<List<FraudCase>> DetectFraudAsync(Transaction transaction);
         Task ApplyRulesToTransactionAsync(Transaction transaction);
         Task<List<Transaction>> ProcessBulkTransactionsAsync(List<Transaction> transactions);
-        Task<bool> CompileAndExecuteFraudRuleAsync(FraudRule fraudRule);
+        Task<bool> CompileAndExecuteFraudRuleAsync(FraudRule fraudRule, Transaction transaction);
     }
 }

@@ -32,21 +32,36 @@ namespace HighPerformanceFraudDetectionSystem.Implementations
                 _context.FraudRules.Remove(rule);
                 await _context.SaveChangesAsync();
             }
+            
         }
 
         public async Task<List<FraudRule>> GetAllFraudRulesAsync()
         {
-           return await _context.FraudRules.Include(t=>t.Transactions).ToListAsync();
+           var rules= await _context.FraudRules.Include(t=>t.Transactions).ToListAsync();
+            if(rules.Count == 0)
+            {
+                Console.WriteLine("No rules found");
+                return new List<FraudRule>();
+            }
+            return rules;
         }
 
-        public Task<FraudRule?> GetFraudRuleByIdAsync(int id)
+        public async Task<FraudRule?> GetFraudRuleByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var rule = await _context.FraudRules.Include(fr => fr.Transactions).Include(fr => fr.FraudCases).FirstOrDefaultAsync(fr => fr.FraudRuleId == id);
+
+            if (rule == null)
+            {
+                Console.WriteLine("rule not found");
+                return null;
+            }
+            return rule;
         }
 
-        public Task UpdateFraudRuleAsync(FraudRule fraudRule)
+        public async Task UpdateFraudRuleAsync(FraudRule fraudRule)
         {
-            throw new NotImplementedException();
+            _context.FraudRules.Update(fraudRule);
+            await _context.SaveChangesAsync();
         }
     }
 }
