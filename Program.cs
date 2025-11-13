@@ -23,81 +23,81 @@ class Program
         var fraudCaseService=provider.GetRequiredService<IFraudCaseService>();
         var fraudRuleService = provider.GetRequiredService<IFraudRuleService>();
         var fraudDetectionService = provider.GetRequiredService<IFraudDetectionService>();
-        //Add customer
-        var customer = await customerService.AddCustomerAsync(new Customer
-        {
+        ////Add customer
+        //var customer = await customerService.AddCustomerAsync(new Customer
+        //{
 
-            CustomerName = "John Doe",
-            Email = "john@example.com",
-            Country = "US"
+        //    CustomerName = "John Doe",
+        //    Email = "john@example.com",
+        //    Country = "US"
 
 
-        });
-        Console.WriteLine($"Customer added: {customer.CustomerName}");
-        var customer1 = await customerService.AddCustomerAsync(new Customer
-        {
-            CustomerName = "Alice",
-            Email = "alice@example.com",
-            Country = "US"
-        });
+        //});
+        //Console.WriteLine($"Customer added: {customer.CustomerName}");
+        //var customer1 = await customerService.AddCustomerAsync(new Customer
+        //{
+        //    CustomerName = "Alice",
+        //    Email = "alice@example.com",
+        //    Country = "US"
+        //});
 
         var customer2 = await customerService.AddCustomerAsync(new Customer
         {
-            CustomerName = "Bob",
-            Email = "bob@example.com",
-            Country = "UK"
+            CustomerName = "Boblue",
+            Email = "boblue@example.com",
+            Country = "Us"
         });
 
-        Console.WriteLine($"Added customers: {customer1.CustomerName}, {customer2.CustomerName}");
+        //Console.WriteLine($"Added customers: {customer1.CustomerName}, {customer2.CustomerName}");
 
-        var transaction = await transactionService.AddTransactionAsync(new Transaction
-        {
-            CustomerId = customer.CustomerId,
-            Amount = 6000,
-            TransactionDate = DateTime.Now.AddMinutes(-10),
-            Location = "New York"
-        });
-        Console.WriteLine($"Transaction added: {transaction.TransactionId}");
-        var transaction1 = await transactionService.AddTransactionAsync(new Transaction
-        {
-            CustomerId = customer1.CustomerId,
-            Amount = 6000,
-            TransactionDate = DateTime.Now.AddMinutes(-30),
-            Location = "New York"
-        });
-        Console.WriteLine($"Transaction added: {transaction1.TransactionId}");
+        //var transaction = await transactionService.AddTransactionAsync(new Transaction
+        //{
+        //    CustomerId = customer.CustomerId,
+        //    Amount = 6000,
+        //    TransactionDate = DateTime.Now.AddMinutes(-10),
+        //    Location = "New York"
+        //});
+        //Console.WriteLine($"Transaction added: {transaction.TransactionId}");
+        //var transaction1 = await transactionService.AddTransactionAsync(new Transaction
+        //{
+        //    CustomerId = customer1.CustomerId,
+        //    Amount = 6000,
+        //    TransactionDate = DateTime.Now.AddMinutes(-30),
+        //    Location = "New York"
+        //});
+        //Console.WriteLine($"Transaction added: {transaction1.TransactionId}");
         var transaction2 = await transactionService.AddTransactionAsync(new Transaction
         {
             CustomerId = customer2.CustomerId,
-            Amount = 3000,
-            TransactionDate = DateTime.Now.AddMinutes(-20),
+            Amount = 3500,
+            TransactionDate = DateTime.Now.AddMinutes(-25),
             Location = "London"
         });
         Console.WriteLine($"Transaction added: {transaction2.TransactionId}");
-        var fraudRule=await fraudRuleService.AddFraudRuleAsync(new FraudRule
-        {
+        //var fraudRule=await fraudRuleService.AddFraudRuleAsync(new FraudRule
+        //{
 
-            RuleName = "High Amount US",
-            ConditionExpression = "Amount > 5000 && Country == \"US\"",
-            IsActive = true
-        });
+        //    RuleName = "High Amount US",
+        //    ConditionExpression = "Amount > 5000 && Country == \"US\"",
+        //    IsActive = true
+        //});
 
-        Console.WriteLine($"Fraud rule added: {fraudRule.RuleName}");
-        var fraudRule1=  await fraudRuleService.AddFraudRuleAsync(new FraudRule
-        {
-            RuleName = "High Amount US",
-            ConditionExpression = "Amount > 5000 && Country == \"US\"",
-            IsActive = true
-        });
-        Console.WriteLine($"Fraud rule added: {fraudRule1.RuleName}");
-        var fraudRule2=await fraudRuleService.AddFraudRuleAsync(new FraudRule
-        {
-            RuleName = "High Amount UK",
-            ConditionExpression = "Amount > 4000 && Country == \"UK\"",
-            IsActive = true
-        });
-        Console.WriteLine($"Fraud rule added: {fraudRule2.RuleName}");
-        var fraudCases = await fraudDetectionService.DetectFraudAsync(transaction);
+        //Console.WriteLine($"Fraud rule added: {fraudRule.RuleName}");
+        //var fraudRule1=  await fraudRuleService.AddFraudRuleAsync(new FraudRule
+        //{
+        //    RuleName = "High Amount US",
+        //    ConditionExpression = "Amount > 5000 && Country == \"US\"",
+        //    IsActive = true
+        //});
+        //Console.WriteLine($"Fraud rule added: {fraudRule1.RuleName}");
+        //var fraudRule2=await fraudRuleService.AddFraudRuleAsync(new FraudRule
+        //{
+        //    RuleName = "High Amount UK",
+        //    ConditionExpression = "Amount > 4000 && Country == \"UK\"",
+        //    IsActive = true
+        //});
+        //Console.WriteLine($"Fraud rule added: {fraudRule2.RuleName}");
+        var fraudCases = await fraudDetectionService.DetectFraudAsync(transaction2);
         Console.WriteLine($"Fraud cases detected: {fraudCases.Count}");
     }
 }

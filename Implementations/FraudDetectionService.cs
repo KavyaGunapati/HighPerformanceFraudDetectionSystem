@@ -43,7 +43,8 @@ namespace HighPerformanceFraudDetectionSystem.Implementations
             }
             if (fraudRule.ConditionExpression.Contains("Country"))
             {
-                var countryProp = Expression.Property(param, "Country");
+                var customerprop = Expression.Property(param, "Customer");
+                var countryProp = Expression.Property(customerprop, "Country");
                 var country = Expression.Constant("US");
                 var countryCheck = Expression.Equal(countryProp, country);
                 conditon = conditon != null ? Expression.AndAlso(conditon, countryCheck) : countryCheck;
